@@ -1,4 +1,33 @@
 <!DOCTYPE html>
+<head>
+
+</head>
+<body>
+    <h1> Play RPS! </h1>
+    <div>
+        <button id = 'rock'>
+            Rock
+        </button>
+        <button id = 'paper'>
+            Paper
+        </button>
+        <button id = 'scissors'>
+            Scissors
+        </button>
+
+    </div>
+    <br />
+    <div id = 'scoreboard'>
+        Computer : <p id = 'comp-score'>0</p>
+
+        Human : <p id = 'human-score'>0</p>
+
+        Draws : <p id = 'draw-score'>0</p>
+    </div>
+    <div id = 'result-screen'>
+
+    </div>
+</body>
 <script>
     function computerPlay(){
         //choose a random number, turn it into an array index.
@@ -38,28 +67,101 @@
         }
 
     }
+    // let humanScore = parseInt(document.querySelector('#human-score'));
+    // let compScore = parseInt(document.querySelector('#comp-score'));
+    // let drawScore = parseInt(document.querySelector('#draw-score'));
 
-    function game(){
-        let humanWins = 0;
-        let computerWins = 0;
-        let draws = 0;
-        for(let i = 0; i<5; i++){
-            let playerSelection = prompt("Rock Paper Scissors Shoot!");
-            let outcomeString = playRound(playerSelection, computerPlay());
-            //if the function returns a string that says win, lets add a win to the human wins.
+    let rock = document.querySelector("#rock");
+    rock.addEventListener('click', function (e) {
+        let computerChoice = computerPlay();
+        let result = playRound('rock', computerChoice);
+        //instead of console logging, put this onto the dom
+        // console.log(result);
+        let scoreBoard = document.querySelector('#result-screen');
+        scoreBoard.innerText=result;
+
+        let humanWin = didPlayerWin (result);
+        changeScore(humanWin);
+    })
+
+    let paper = document.querySelector("#paper");
+    paper.addEventListener('click', function (e) {
+        let computerChoice = computerPlay();
+        let result = playRound('paper', computerChoice);
+        //console.log(result);
+        let scoreBoard = document.querySelector('#result-screen');
+        scoreBoard.innerText=result;
+        let humanWin = didPlayerWin (result);
+        changeScore(humanWin);
+    })
+
+    let scissors = document.querySelector("#scissors");
+    scissors.addEventListener('click', function (e) {
+        let computerChoice = computerPlay();
+        let result = playRound('scissors', computerChoice);
+        // console.log(result);
+        let scoreBoard = document.querySelector('#result-screen');
+        scoreBoard.innerText=result;
+        let humanWin = didPlayerWin (result);
+        changeScore(humanWin);
+    })
+
+    //return 1 if player wins, 0 for draw -1 for pc win.
+    function didPlayerWin (outcomeString){
             let playerWin = outcomeString.includes('win');
             if(playerWin){
-                humanWins += 1;
+                return 1;
             }else if(outcomeString.includes('draw')){
-                draws += 1;
+                return 0;
             }else{
-                computerWins += 1;
+                return -1;
             }
-            console.log(outcomeString);
-            console.log(`the score is human: ${humanWins} to computer: ${computerWins} draws: ${draws}`);
+        
+    }
+    function changeScore (whichPlayer){
+        if(whichPlayer === 1){
+            let PrevHumanScore = parseInt(document.querySelector('#human-score').innerText);
+            humanScore = PrevHumanScore + 1;
+            let humanScoreRef = document.querySelector('#human-score');
+            humanScoreRef.innerText = humanScore;
+        }else if (whichPlayer === 0){
+            let PrevDrawScore = parseInt(document.querySelector('#draw-score').innerText);
+            drawScore = PrevDrawScore + 1;
+            let drawScoreRef = document.querySelector('#draw-score');
+            drawScoreRef.innerText = drawScore;
+        }else if (whichPlayer === -1){
+            let prevCompScore = parseInt(document.querySelector('#comp-score').innerText);
+            compScore = prevCompScore + 1;
+            let compScoreRef = document.querySelector('#comp-score');
+            compScoreRef.innerText = compScore;
+        }else{
+            console.log('change score got passed a bad input');
+        }
+
+    }
+
+
+    // function game(){
+    //     let humanWins = 0;
+    //     let computerWins = 0;
+    //     let draws = 0;
+    //     for(let i = 0; i<5; i++){
+    //         let playerSelection = prompt("Rock Paper Scissors Shoot!");
+    //         let outcomeString = playRound(playerSelection, computerPlay());
+    //         //if the function returns a string that says win, lets add a win to the human wins.
+    //         let playerWin = outcomeString.includes('win');
+    //         if(playerWin){
+    //             humanWins += 1;
+    //         }else if(outcomeString.includes('draw')){
+    //             draws += 1;
+    //         }else{
+    //             computerWins += 1;
+    //         }
+    //         console.log(outcomeString);
+    //         console.log(`the score is human: ${humanWins} to computer: ${computerWins} draws: ${draws}`);
             
 
-        }
-    }
-    game();
+    //     }
+    // }
+    // game();
 </script>
