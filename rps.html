@@ -12,7 +12,7 @@
         playerSelection=playerSelection.toLowerCase();
         computerSelection=computerSelection.toLowerCase();
         if((playerSelection !== 'rock' && playerSelection !== 'scissors' && playerSelection !== 'paper') || !playerSelection){
-            return("play nicely, please choose rock, paper, or scissors");
+            return("play nicely, please choose rock, paper, or scissors (I'm counting this in computer's favour you jerk)");
         }
         //these could be nicely upgraded to use ternary operator...
         if(playerSelection === computerSelection){
@@ -62,7 +62,4 @@
         }
     }
     game();
-    // const playerSelection= 'rock';
-    // const computerSelection = computerPlay()
-    // console.log(playRound(playerSelection,computerSelection));
 </script>
